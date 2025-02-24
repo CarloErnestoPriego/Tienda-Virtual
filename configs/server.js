@@ -5,6 +5,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import { dbConnection } from './mongo.js';
+import authRoutes from '../src/auths/auth.routes.js'
 
 const middlewares = (app)=>{
     app.use(express.urlencoded({extended:false}));
@@ -15,7 +16,7 @@ const middlewares = (app)=>{
 }
 
 const routes = (app) =>{
-
+    app.use('/virtualStore/v1/auth', authRoutes)
 }
 
 const conectarDB = async()=>{
