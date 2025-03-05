@@ -52,14 +52,14 @@ const userSchema = new Schema({
 
     {
         timestamps: true,
-        versionKey: false   //Desactiva la inclusión de un campo __v en los documentos.
+        versionKey: false
     }
 );
  
 userSchema.methods.toJSON = function() {
-    const { __v, password, _id, ...user } = this.toObject(); //Define lo que queremos descartar de la salida de datos.
+    const { __v, password, _id, ...user } = this.toObject();
     user.uid = _id;
-    return user;    //Retorna al usuario sin los datos de la constante {__v, password, _id, ...user}
+    return user;
 };
  
-export default model('User', userSchema);   //Exportamos por defecto el modelo llamado 'User' 
+export default model('User', userSchema);

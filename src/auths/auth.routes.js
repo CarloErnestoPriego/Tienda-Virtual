@@ -4,21 +4,21 @@ import { registerValidator, loginValidator } from '../middlewares/validator.js';
 import { uploadProfilePicture } from '../middlewares/multer-upload.js';
 import { deleteFileonError } from '../middlewares/delete-file-on-error.js';
  
-const router = Router();    //Instanciamos al metodo router
+const router = Router();
  
-router.post(    //Solicitud POST
-    '/login',   //Ruta Login
+router.post(
+    '/login',
     loginValidator,
     deleteFileonError,
     login
 );
  
 router.post(
-    '/register',    //Ruta Register
+    '/register',
     uploadProfilePicture.single("profilePicture"),
     registerValidator,
     deleteFileonError,
     register
 );
 
-export default router;  //Exportamos por default el router
+export default router;

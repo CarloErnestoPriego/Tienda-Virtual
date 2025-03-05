@@ -5,7 +5,9 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import { dbConnection } from './mongo.js';
-import authRoutes from '../src/auths/auth.routes.js'
+import authRoutes from '../src/auths/auth.routes.js';
+import authProducts from '../src/products/products.routes.js';
+//import authCategory from '../src/categories/'
 
 const middlewares = (app)=>{
     app.use(express.urlencoded({extended:false}));
@@ -16,7 +18,9 @@ const middlewares = (app)=>{
 }
 
 const routes = (app) =>{
-    app.use('/virtualStore/v1/auth', authRoutes)
+    app.use('/virtualStore/v1/auth', authRoutes);
+    app.use('/virtualStore/v1/product', authProducts);
+    app.use('/virtualStore/v1/category', authCategory);
 }
 
 const conectarDB = async()=>{
