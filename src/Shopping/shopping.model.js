@@ -1,17 +1,29 @@
-import { Schema, model } from 'mongoose';
+import mongoose from 'mongoose';
+const { Schema, model } = mongoose;
 
-const shoppingSchema = new Schema({
-    idProducto: {   //id del producto
+const shoppingCartSchema = new Schema({
+    user: {
         type: Schema.Types.ObjectId,
-        ref: 'Product',
+        ref: 'User',
         required: true
-    }
-})
+    },
+    products: [
+        {
+            product: {
+                type: Schema.Types.ObjectId,
+                ref: 'Product',
+                required: true
+            },
+            quantity: {
+                type: Number,
+                required: true,
+                min: 1
+            }
+        }
+    ]
+}, {
+    timestamps: true,
+    versionKey: false
+});
 
-shoppingSchema.methods.toJSON = function() {
-    const { __v, _id, ...cart } = this.toObject();
-    cart.uid = _id;
-    return cart;
-};
-
-export default model('Cart', shoppingSchema);
+export default model('ShoppingCart', shoppingCartSchema);

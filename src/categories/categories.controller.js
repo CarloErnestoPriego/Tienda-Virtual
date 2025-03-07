@@ -1,125 +1,125 @@
-import Category from './categories.model.js'
+import Category from './categories.model.js';
 
-export const registerProduct = async (req, res) =>{
-    try{
+export const registerCategory = async (req, res) => {
+    try {
+        const { category } = req.body;
 
-        const data  = req.body
-        const encryptedPassword = await hash(data.password)
-        data.password = encryptedPassword
-        const product  = await Product.create(data);
- 
+        // Comprobar si la categoría ya existe
+        const existingCategory = await Category.findOne({ category });
+        if (existingCategory) {
+            return res.status(400).json({
+                message: "Category already exists"
+            });
+        }
+
+        const newCategory = await Category.create({ category });
+
         return res.status(201).json({
-            message: "Product has been created",
-            name: product.name
-        })
-    }catch(e){
+            message: "Category has been created",
+            category: newCategory
+        });
+    } catch (e) {
         return res.status(500).json({
-            message: "Error when entering product",
+            message: "Error when entering category",
             error: e.message
         });
     }
-}
+};
 
-
-export const getProduct = async (req, res) =>{
-
-    const {limite = 10, desde = 0} = req.query;
-
-    const query = {status: true};
-
+export const getCategories = async (req, res) => {
     try {
-        
-        const product = await Product.find(query)
-        .skip(Number(desde))
-        .limit(Number(limite));
-
-        const total = await Product.countDocuments(query);
+        const categories = await Category.find();
 
         res.status(200).json({
             success: true,
-            total,
-        })
-
+            categories
+        });
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: 'Error getting products',
+            message: 'Error getting categories',
             error
-        })
+        });
     }
-}
+};
 
-export const searchProduct = async (req, res) =>{
-
-    const {id}= req.params;
+export const searchCategory = async (req, res) => {
+    const { id } = req.params;
 
     try {
-        
-        const product = await Product.findById(id);
+        const category = await Category.findById(id);
 
-        if(!product){
+        if (!category) {
             return res.status(404).json({
                 success: false,
-                message: 'Product not found'
-            })
+                message: 'Category not found'
+            });
         }
 
         res.status(200).json({
-            succes: true,
-            product
-        })
-
+            success: true,
+            category
+        });
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: 'Error al obtener producto',
+            message: 'Error retrieving category',
             error
-        })
+        });
     }
-}
+};
 
+export const updateCategory = async (req, res) => {
+    const { id } = req.params;
+    const { category } = req.body;
 
-export const deleteProduct = async (req,res ) =>{
-
-    const {id}= req.params;
     try {
-        
-        await Product.findByIdAndUpdate(id,{status: false});
+        const updatedCategory = await Category.findByIdAndUpdate(id, { category }, { new: true });
+
+        if (!updatedCategory) {
+            return res.status(404).json({
+                success: false,
+                message: 'Category not found'
+            });
+        }
 
         res.status(200).json({
             success: true,
-            message: 'product successfully removed'
-        })
-
+            message: 'Category updated',
+            category: updatedCategory
+        });
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: 'error deleting product',
+            message: 'Error updating category',
             error
-        })
+        });
     }
-}
+};
 
-export const updateProduct = async (req, res) => {
-    
-    const {id} = req.params;
-    const {_id,...data} = req.body;
+export const deleteCategory = async (req, res) => {
+    const { id } = req.params;
 
     try {
-    
-        const product = await Product.findByIdAndUpdate(id,data,{new: true});
-        
+        const category = await Category.findByIdAndDelete(id);
+
+        if (!category) {
+            return res.status(404).json({
+                success: false,
+                message: 'Category not found'
+            });
+        }
+
         res.status(200).json({
             success: true,
-            message: 'Product updated',
-            product
-        })
-
+            message: 'Category successfully deleted',
+            category
+        });
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: 'Error updating product',
+            message: 'Error deleting category',
             error
-        })
+        });
     }
-}
+};

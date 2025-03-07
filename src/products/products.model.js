@@ -1,44 +1,42 @@
-import mongoose from 'mongoose';
 import { Schema, model } from 'mongoose';
 
 const productSchema = new Schema({
-    name:{
+    name: {
         type: String,
-        required: [true, 'name is required'],
-        maxLength: [25, "Cant be overcome 25 characters"]
+        required: [true, 'El nombre del producto es requerido'],
     },
-    description:{
+    description: {
         type: String,
-        required: [true, 'you need to add a description to continue']
+        required: [true, 'La descripcion del producto es requerida'],
     },
-    stock:{
-        type: Int32,
-        required: [true, 'you need to add the stock']
+    category: {
+        type: Schema.Types.ObjectId, 
+        ref: 'Category',
+        required: [true, 'Necesitas especificar una categoria']
     },
-    category:{
-        type: String,
-        required: [true, 'you need to add a category']
+    price: {
+        type: Number,
+        required: [true, 'El precio del producto es requerido'],
+        min: [0, 'El precio no puede ser menor que 0']
     },
-    price:{
-        type: Double,
-        required: [true, 'price is required']
+    stock: {
+        type: Number,
+        required: [true, 'El stock del producto es requerido'],
+        min: [0, 'El stock no puede ser menor que 0']
     },
-    productPicture:{
-        type: String
+    sold: {
+        type: Number,
+        default: 0, 
+        min: [0, 'Las ventas no pueden ser menores que 0'],
     },
-    state:{
+    status: {
         type: Boolean,
         default: true
-    },
-},
-    {
-        timestamps: true,
-        versionKey: false   //Desactiva la inclusión de un campo __v en los documentos.
     }
-);
+});
 
-userSchema.methods.toJSON = function() {
-    const { __v, password, _id, ...product } = this.toObject();
+productSchema.methods.toJSON = function() {
+    const { __v, _id, ...product } = this.toObject();
     product.uid = _id;
     return product;
 };
