@@ -1,8 +1,10 @@
 import { Schema, model } from 'mongoose';
 
 const shoppingSchema = new Schema({
-    idProducto: {
-
+    idProducto: {   //id del producto
+        type: Schema.Types.ObjectId,
+        ref: 'Product',
+        required: true
     }
 })
 
