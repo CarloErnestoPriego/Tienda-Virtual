@@ -26,7 +26,7 @@ export const login = async (req, res) => {
             })
         }
 
-        const validPassword = await verify(user.password, password);    //Valida la contraseña
+        const validPassword = await verify(user.password, password);   //Valida la contraseña
         if (!validPassword) {
             return express.status(400).json({
                 msg: "La contraseña es incorrecta"
@@ -57,14 +57,11 @@ export const register = async (req, res) => {
     try {
         const data = req.body;
 
-        // Asignar la imagen de perfil si existe
         let profilePicture = req.file ? req.file.filename : null;
 
-        // Encriptar la contraseña
         const encryptedPassword = await hash(data.password);
 
-        // Asignar un rol por defecto si no se proporciona uno
-        const role = data.role || 'CLIENT_ROLE';  // Asigna CLIENT_ROLE por defecto
+        const role = data.role || 'CLIENT_ROLE';    //Si no se envia el rol, se asigna el rol de CLIENT_ROLE
 
         // Crear el usuario
         const user = await Usuario.create({
@@ -74,7 +71,7 @@ export const register = async (req, res) => {
             email: data.email,
             phone: data.phone,
             password: encryptedPassword,
-            role: role,  // Se usa el rol determinado
+            role: role,
             profilePicture
         });
 
@@ -92,7 +89,7 @@ export const register = async (req, res) => {
         console.log(error);
         return res.status(500).json({
             message: "User registration failed",
-            error: error.message  // Corregir el nombre del objeto de error
+            error: error.message
         });
     }
 }

@@ -9,7 +9,7 @@ export const searchBill = async (req, res) => {
         if (bills.length === 0) {
             return res.status(404).json({
                 success: false,
-                message: 'No bills found for this user'
+                message: 'No se encontraron facturas'
             });
         }
 
@@ -21,7 +21,7 @@ export const searchBill = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: 'Error getting bills',
+            message: 'Error al obtener facturas',
             error
         });
     }
@@ -38,14 +38,14 @@ export const updateBill = async (req, res) => {
         
         res.status(200).json({
             success: true,
-            message: 'Bill updated',
+            message: 'Factura actualizada',
             bill
         })
 
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: 'Error updating Bill',
+            message: 'Error al actualizar factura',
             error
         })
     }

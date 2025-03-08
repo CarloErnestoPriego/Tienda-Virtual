@@ -1,0 +1,14 @@
+[{
+  "_id": {
+    "$oid": "67ca5ef7f0c710ac836e75cb"
+  },
+  "category": "Electrodomesticos",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67cb8eac3134b6477bae6d82"
+  },
+  "category": "General",
+  "__v": 0
+}]

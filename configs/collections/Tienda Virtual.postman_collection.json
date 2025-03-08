@@ -1,0 +1,675 @@
+{
+	"info": {
+		"_postman_id": "ce7f4dca-acb5-4208-bfcd-2f28af880013",
+		"name": "Tienda Virtual",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42635842"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Carlos\",\r\n    \"surname\": \"Priego\",\r\n    \"username\": \"cpriego\",\r\n    \"email\": \"cpriego@gmail.com\",\r\n    \"password\": \"12345678\",\r\n    \"phone\": \"78561203\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/virtualStore/v1/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"virtualStore",
+						"v1",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"cpriego\",\r\n    \"password\": \"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/virtualStore/v1/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"virtualStore",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteUser",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"confirm\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/virtualStore/v1/user/67cb87600c4e8a474280f7d3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"virtualStore",
+						"v1",
+						"user",
+						"67cb87600c4e8a474280f7d3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postCategory",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2N2NhNGVlYzBjNmQ0MTI1NDZmMzVjNGYiLCJpYXQiOjE3NDEzMTU4MjIsImV4cCI6MTc0MTMxOTQyMn0.AP7s4XfNjL9094ejRt1wXDMVRJIDnlhjXyVMI_BGZt0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"category\": \"Alimentos\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/virtualStore/v1/category/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"virtualStore",
+						"v1",
+						"category",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCategory",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2N2NhNGVlYzBjNmQ0MTI1NDZmMzVjNGYiLCJpYXQiOjE3NDEzMTU4MjIsImV4cCI6MTc0MTMxOTQyMn0.AP7s4XfNjL9094ejRt1wXDMVRJIDnlhjXyVMI_BGZt0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"category\": \"Alimentos\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/virtualStore/v1/category/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"virtualStore",
+						"v1",
+						"category",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCategoryById",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2N2NhNGVlYzBjNmQ0MTI1NDZmMzVjNGYiLCJpYXQiOjE3NDEzMTU4MjIsImV4cCI6MTc0MTMxOTQyMn0.AP7s4XfNjL9094ejRt1wXDMVRJIDnlhjXyVMI_BGZt0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"category\": \"Alimentos\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/virtualStore/v1/category/67ca5f73bc1cd2d5f5e2f8fd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"virtualStore",
+						"v1",
+						"category",
+						"67ca5f73bc1cd2d5f5e2f8fd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateCategory",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2N2NhNGVlYzBjNmQ0MTI1NDZmMzVjNGYiLCJpYXQiOjE3NDEzMTU4MjIsImV4cCI6MTc0MTMxOTQyMn0.AP7s4XfNjL9094ejRt1wXDMVRJIDnlhjXyVMI_BGZt0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"category\": \"Bebes\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/virtualStore/v1/category/67ca5f73bc1cd2d5f5e2f8fd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"virtualStore",
+						"v1",
+						"category",
+						"67ca5f73bc1cd2d5f5e2f8fd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteCategory",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2N2NhNGVlYzBjNmQ0MTI1NDZmMzVjNGYiLCJpYXQiOjE3NDEzMTU4MjIsImV4cCI6MTc0MTMxOTQyMn0.AP7s4XfNjL9094ejRt1wXDMVRJIDnlhjXyVMI_BGZt0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"category\": \"Bebes\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/virtualStore/v1/category/67ca5f73bc1cd2d5f5e2f8fd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"virtualStore",
+						"v1",
+						"category",
+						"67ca5f73bc1cd2d5f5e2f8fd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postProduct",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2N2NhNGVlYzBjNmQ0MTI1NDZmMzVjNGYiLCJpYXQiOjE3NDEzMTU4MjIsImV4cCI6MTc0MTMxOTQyMn0.AP7s4XfNjL9094ejRt1wXDMVRJIDnlhjXyVMI_BGZt0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Cereal\",\r\n    \"description\": \"Cereal Zucaritas\",\r\n    \"category\": \"67ca5f972a1b74d7a97b26a4\",\r\n    \"price\": 20.99,\r\n    \"stock\": 100,\r\n    \"sold\": 30\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/virtualStore/v1/product/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"virtualStore",
+						"v1",
+						"product",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getProduct",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2N2NhNGVlYzBjNmQ0MTI1NDZmMzVjNGYiLCJpYXQiOjE3NDEzMTU4MjIsImV4cCI6MTc0MTMxOTQyMn0.AP7s4XfNjL9094ejRt1wXDMVRJIDnlhjXyVMI_BGZt0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Batidora\",\r\n    \"description\": \"Bate cosas\",\r\n    \"category\": \"67ca5ef7f0c710ac836e75cb\",\r\n    \"price\": 10.25,\r\n    \"stock\": 32,\r\n    \"sold\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/virtualStore/v1/product/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"virtualStore",
+						"v1",
+						"product",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getProductById",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2N2NhNGVlYzBjNmQ0MTI1NDZmMzVjNGYiLCJpYXQiOjE3NDEzMTU4MjIsImV4cCI6MTc0MTMxOTQyMn0.AP7s4XfNjL9094ejRt1wXDMVRJIDnlhjXyVMI_BGZt0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Batidora\",\r\n    \"description\": \"Bate cosas\",\r\n    \"category\": \"67ca5ef7f0c710ac836e75cb\",\r\n    \"price\": 10.25,\r\n    \"stock\": 32,\r\n    \"sold\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/virtualStore/v1/product/67ca6313ec68cd4ba5d6aff8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"virtualStore",
+						"v1",
+						"product",
+						"67ca6313ec68cd4ba5d6aff8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateProduct",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2N2NhNGVlYzBjNmQ0MTI1NDZmMzVjNGYiLCJpYXQiOjE3NDEzMTU4MjIsImV4cCI6MTc0MTMxOTQyMn0.AP7s4XfNjL9094ejRt1wXDMVRJIDnlhjXyVMI_BGZt0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"HolaMundo\"\r\n   \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/virtualStore/v1/product/67ca6352ec68cd4ba5d6affb",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"virtualStore",
+						"v1",
+						"product",
+						"67ca6352ec68cd4ba5d6affb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteProduct",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2N2NhNGVlYzBjNmQ0MTI1NDZmMzVjNGYiLCJpYXQiOjE3NDEzMTU4MjIsImV4cCI6MTc0MTMxOTQyMn0.AP7s4XfNjL9094ejRt1wXDMVRJIDnlhjXyVMI_BGZt0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Batidora\",\r\n    \"description\": \"Bate cosas\",\r\n    \"category\": \"67ca5ef7f0c710ac836e75cb\",\r\n    \"price\": 10.25,\r\n    \"stock\": 32,\r\n    \"sold\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/virtualStore/v1/product/67ca647821755a5c493bb161",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"virtualStore",
+						"v1",
+						"product",
+						"67ca647821755a5c493bb161"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addToCart",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": \"67ca4eec0c6d412546f35c4f\",\r\n    \"productId\": \"67ca6313ec68cd4ba5d6aff8\",\r\n    \"quantity\": 2\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/virtualStore/v1/cart/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"virtualStore",
+						"v1",
+						"cart",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "buyingProcess",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": \"67ca4eec0c6d412546f35c4f\",\r\n  \"paymentMethod\": \"credit_card\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/virtualStore/v1/buy/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"virtualStore",
+						"v1",
+						"buy",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getBillById",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2N2NhNGVlYzBjNmQ0MTI1NDZmMzVjNGYiLCJpYXQiOjE3NDEzMTU4MjIsImV4cCI6MTc0MTMxOTQyMn0.AP7s4XfNjL9094ejRt1wXDMVRJIDnlhjXyVMI_BGZt0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Cereal\",\r\n    \"description\": \"Cereal Choco Krispis\",\r\n    \"category\": \"67ca5f972a1b74d7a97b26a4\",\r\n    \"price\": 20.99,\r\n    \"stock\": 0,\r\n    \"sold\": 30\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/virtualStore/v1/bill/67ca4eec0c6d412546f35c4f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"virtualStore",
+						"v1",
+						"bill",
+						"67ca4eec0c6d412546f35c4f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateBill",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2N2NhNGVlYzBjNmQ0MTI1NDZmMzVjNGYiLCJpYXQiOjE3NDEzMTU4MjIsImV4cCI6MTc0MTMxOTQyMn0.AP7s4XfNjL9094ejRt1wXDMVRJIDnlhjXyVMI_BGZt0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"totalAmount\": 32.00\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/virtualStore/v1/bill/67cb7f42a81d696bc32163fa",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"virtualStore",
+						"v1",
+						"bill",
+						"67cb7f42a81d696bc32163fa"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

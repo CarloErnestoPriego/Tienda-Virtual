@@ -6,12 +6,12 @@ export const registerProduct = async (req, res) => {
         const product = await Product.create(data);
 
         return res.status(201).json({
-            message: "Product has been created",
+            message: "El producto se ha registrado correctamente",
             product
         });
     } catch (e) {
         return res.status(500).json({
-            message: "Error when entering product",
+            message: "Error al registrar el producto",
             error: e.message
         });
     }
@@ -32,7 +32,7 @@ export const getProduct = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: 'Error getting products',
+            message: 'Error obteniendo productos',
             error
         });
     }
@@ -47,7 +47,7 @@ export const searchProduct = async (req, res) => {
         if (!product) {
             return res.status(404).json({
                 success: false,
-                message: 'Product not found'
+                message: 'Producto no encontrado'
             });
         }
 
@@ -58,7 +58,7 @@ export const searchProduct = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: 'Error retrieving product',
+            message: 'Error buscando producto',
             error
         });
     }
@@ -72,19 +72,19 @@ export const deleteProduct = async (req, res) => {
         if (!product) {
             return res.status(404).json({
                 success: false,
-                message: 'Product not found'
+                message: 'Producto no encontrado'
             });
         }
 
         res.status(200).json({
             success: true,
-            message: 'Product successfully removed',
+            message: 'Producto eliminado correctamente',
             product
         });
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: 'Error deleting product',
+            message: 'Error eliminando producto',
             error
         });
     }
@@ -100,64 +100,52 @@ export const updateProduct = async (req, res) => {
         if (!product) {
             return res.status(404).json({
                 success: false,
-                message: 'Product not found'
+                message: 'Producto no encontrado'
             });
         }
 
         res.status(200).json({
             success: true,
-            message: 'Product updated',
+            message: 'Producto actualizado correctamente',
             product
         });
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: 'Error updating product',
+            message: 'Error actualizando producto',
             error
         });
     }
 };
 
-export const getOutOfStockProducts = async (req, res) => {  //arreglar
-    const { limite = 10, desde = 0 } = req.query;
-    
+export const getOutOfStockProducts = async (req, res) => {
     try {
-        const products = await Product.find({ stock: 0 })
-            .skip(Number(desde) || 0)
-            .limit(Number(limite) || 10);
-
-        res.status(200).json({
-            success: true,
-            products
-        });
+        const products = await Product.find({ stock: 0 });
+        if (products.length === 0) {
+            console.log('No hay productos agotados.');
+        } else {
+            console.log('Productos agotados:', products);
+        }
+        return products;
     } catch (error) {
-        console.error('Error fetching out-of-stock products:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Error getting out-of-stock products',
-            error: error.message
-        });
-    } 
+        console.error('Error obteniendo productos sin stock:', error);
+    }
 };
 
-export const getTopSellingProducts = async (req, res) => {  //arreglar
-    const { limite = 10, desde = 0 } = req.query;
 
+export const getTopSellingProducts = async (req, res) => {
     try {
         const products = await Product.find()
-            .sort({ sold: -1 }) // Ordena por el valor de "sold" de mayor a menor
-            .skip(Number(desde))
-            .limit(Number(limite));
+            .sort({ sold: -1 })
+            .limit(limit);
 
-        res.status(200).json({
-            success: true,
-            products
-        });
+        if (products.length === 0) {
+            console.log('No hay productos vendidos.');
+        } else {
+            console.log('Productos más vendidos:', products);
+        }
+        return products;
     } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: 'Error getting top sold products',
-            error
-        });
+        console.error('Error obteniendo los productos más vendidos:', error);
     }
 };

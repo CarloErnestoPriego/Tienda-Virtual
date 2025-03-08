@@ -24,7 +24,7 @@ export const buyingProcess = async (req, res) => {
 
             if (product.stock < item.quantity) {
                 return res.status(400).json({ 
-                    message: `Insufficient stock for product: ${product.name}` 
+                    message: `Stock insufiente para este producto: ${product.name}` 
                 });
             }
 

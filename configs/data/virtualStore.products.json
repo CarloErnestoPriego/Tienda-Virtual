@@ -1,0 +1,60 @@
+[{
+  "_id": {
+    "$oid": "67ca6313ec68cd4ba5d6aff8"
+  },
+  "name": "Cereal",
+  "description": "Cereal Zucaritas",
+  "category": {
+    "$oid": "67cb8eac3134b6477bae6d82"
+  },
+  "price": 20.99,
+  "stock": 96,
+  "sold": 30,
+  "status": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ca6352ec68cd4ba5d6affb"
+  },
+  "name": "Batidora",
+  "description": "HolaMundo",
+  "category": {
+    "$oid": "67ca5ef7f0c710ac836e75cb"
+  },
+  "price": 10.25,
+  "stock": 32,
+  "sold": 0,
+  "status": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ca647821755a5c493bb161"
+  },
+  "name": "Batidora",
+  "description": "Bate cosas",
+  "category": {
+    "$oid": "67ca5ef7f0c710ac836e75cb"
+  },
+  "price": 10.25,
+  "stock": 32,
+  "sold": 0,
+  "status": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ca65911c57815137805f93"
+  },
+  "name": "Cereal",
+  "description": "Cereal Choco Krispis",
+  "category": {
+    "$oid": "67cb8eac3134b6477bae6d82"
+  },
+  "price": 20.99,
+  "stock": 0,
+  "sold": 30,
+  "status": true,
+  "__v": 0
+}]

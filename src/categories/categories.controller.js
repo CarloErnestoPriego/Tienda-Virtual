@@ -9,19 +9,19 @@ export const registerCategory = async (req, res) => {
         const existingCategory = await Category.findOne({ category });
         if (existingCategory) {
             return res.status(400).json({
-                message: "Category already exists"
+                message: "La categoría ya existe",
             });
         }
 
         const newCategory = await Category.create({ category });
 
         return res.status(201).json({
-            message: "Category has been created",
+            message: "La categoría ha sido creada",
             category: newCategory
         });
     } catch (e) {
         return res.status(500).json({
-            message: "Error when entering category",
+            message: "Error al ingresar categoría",
             error: e.message
         });
     }
@@ -38,7 +38,7 @@ export const getCategories = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: 'Error getting categories',
+            message: 'Error al obtener categorías',
             error
         });
     }
@@ -53,7 +53,7 @@ export const searchCategory = async (req, res) => {
         if (!category) {
             return res.status(404).json({
                 success: false,
-                message: 'Category not found'
+                message: 'Categoria no encontrada'
             });
         }
 
@@ -64,7 +64,7 @@ export const searchCategory = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: 'Error retrieving category',
+            message: 'Error al obtener categoría',
             error
         });
     }
@@ -80,19 +80,19 @@ export const updateCategory = async (req, res) => {
         if (!updatedCategory) {
             return res.status(404).json({
                 success: false,
-                message: 'Category not found'
+                message: 'Categoria no encontrada'
             });
         }
 
         res.status(200).json({
             success: true,
-            message: 'Category updated',
+            message: 'Categoria actualizada',
             category: updatedCategory
         });
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: 'Error updating category',
+            message: 'Error actualizando categoría',
             error
         });
     }
@@ -107,7 +107,7 @@ export const deleteCategory = async (req, res) => {
         if (!category) {
             return res.status(404).json({
                 success: false,
-                message: 'Category not found'
+                message: 'Categoria no encontrada'
             });
         }
 
@@ -120,7 +120,7 @@ export const deleteCategory = async (req, res) => {
         if (!defaultCategory) {
             return res.status(404).json({
                 success: false,
-                message: 'Default category not found'
+                message: 'Categoria por defecto no encontrada'
             });
         }
 
@@ -133,13 +133,13 @@ export const deleteCategory = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            message: 'Category successfully deleted, products reassigned to default category',
+            message: 'Categoria eliminada, productos movidos a la categoría por defecto',
             category
         });
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: 'Error deleting category',
+            message: 'Error al eliminar categoría',
             error
         });
     }

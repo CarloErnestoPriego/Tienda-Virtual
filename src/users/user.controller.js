@@ -37,7 +37,7 @@ export const getUserById = async (req, res) => {
         if (!user) {
             return res.status(404).json({
                 succes: false,
-                msg: 'User not found'
+                msg: 'Usuario no encontrado'
             })
         }
 
@@ -83,23 +83,49 @@ export const updateUser = async (req, res = response) => {
 export const deleteUser = async (req, res) => {
     try {
         const { id } = req.params;
+        const { confirm } = req.body; // Se espera que el cliente envíe una confirmación
 
-        const user = await User.findByIdAndUpdate(id, {estado: flase}, {new: true})
+        // Verificar si se envió confirmación
+        if (!confirm || confirm !== true) {
+            return res.status(400).json({
+                success: false,
+                message: "Debes confirmar la eliminación del usuario"
+            });
+        }
 
-        const authenticateUser = req.user;
+        // Buscar el usuario
+        const user = await User.findById(id);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "Usuario no encontrado"
+            });
+        }
+
+        // Verificar si el usuario ya está desactivado
+        if (user.estado === false) {
+            return res.status(400).json({
+                success: false,
+                message: "El usuario ya está desactivado"
+            });
+        }
+
+        // Desactivar el usuario
+        user.estado = false;
+        await user.save();
 
         res.status(200).json({
-            succes: true,
-            msg: 'Usuario Desactivado',
-            user,
-            authenticateUser
-        })
+            success: true,
+            message: "Usuario desactivado correctamente",
+            user
+        });
 
     } catch (error) {
         res.status(500).json({
-            succes: false,
-            msg: 'Error al desactivar usuario',
+            success: false,
+            message: "Error al desactivar usuario",
             error
-        })
+        });
     }
-}
+};

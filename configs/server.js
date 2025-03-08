@@ -14,6 +14,7 @@ import authCategory from '../src/categories/categories.routes.js';
 import authCart from '../src/Shopping/shopping.routes.js';
 import authBuyingProcess from '../src/buyingProcess/buyingProcess.routes.js';
 import authBill from '../src/bills/bill.routes.js';
+import authUser from '../src/users/user.routes.js';
 
 
 const middlewares = (app)=>{
@@ -26,6 +27,7 @@ const middlewares = (app)=>{
 
 const routes = (app) =>{
     app.use('/virtualStore/v1/auth', authRoutes);
+    app.use('/virtualStore/v1/user', authUser);
     app.use('/virtualStore/v1/product', authProducts);
     app.use('/virtualStore/v1/category', authCategory);
     app.use('/virtualStore/v1/cart', authCart);
