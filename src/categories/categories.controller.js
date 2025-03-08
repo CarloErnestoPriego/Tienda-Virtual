@@ -1,4 +1,5 @@
 import Category from './categories.model.js';
+import Product from '../products/products.model.js';
 
 export const registerCategory = async (req, res) => {
     try {
@@ -101,7 +102,7 @@ export const deleteCategory = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const category = await Category.findByIdAndDelete(id);
+        const category = await Category.findById(id);
 
         if (!category) {
             return res.status(404).json({
@@ -110,9 +111,29 @@ export const deleteCategory = async (req, res) => {
             });
         }
 
+        const defaultCategory = await Category.findOne({ category: 'General' });
+
+        if (!defaultCategory) {
+            await Category.create({ category: 'General' });
+        }
+
+        if (!defaultCategory) {
+            return res.status(404).json({
+                success: false,
+                message: 'Default category not found'
+            });
+        }
+
+        await Product.updateMany(
+            { category: id },
+            { $set: { category: defaultCategory._id } }
+        );
+
+        await category.deleteOne();
+
         res.status(200).json({
             success: true,
-            message: 'Category successfully deleted',
+            message: 'Category successfully deleted, products reassigned to default category',
             category
         });
     } catch (error) {

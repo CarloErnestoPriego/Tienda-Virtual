@@ -1,10 +1,12 @@
-import { Router } from 'express';
-import addToCart from '../Shopping/shopping.controller.js';
+import Router from 'express';
+import { addToCart } from '../Shopping/shopping.controller.js';
+import { validarJWT } from '../middlewares/validar-jwt.js';
 
-const router = new Router();
+const router = Router();
 
 router.post(
-    '/cart', 
+    '/', 
+    validarJWT,
     addToCart
 );
 

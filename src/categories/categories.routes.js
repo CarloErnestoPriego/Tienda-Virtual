@@ -6,6 +6,7 @@ const router = new Router();
 
 router.post(
     '/', 
+    
     validarJWT,
     registerCategory
 );

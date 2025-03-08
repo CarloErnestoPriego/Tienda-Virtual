@@ -3,7 +3,8 @@ import { Schema, model } from 'mongoose'
 const categorySchema = new Schema({
     category: {
         type: String,
-        required: [true, 'Category is required']
+        required: [true, 'Category is required'],
+        default: 'General'
     }
 })
 

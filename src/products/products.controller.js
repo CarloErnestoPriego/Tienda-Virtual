@@ -119,33 +119,36 @@ export const updateProduct = async (req, res) => {
 };
 
 export const getOutOfStockProducts = async (req, res) => {  //arreglar
+    const { limite = 10, desde = 0 } = req.query;
+    
     try {
-        // Consulta los productos cuyo stock sea igual a 0
-        const products = await Product.find({ stock: 0 });
-
-        if (products.length === 0) {
-            return res.status(404).json({
-                success: false,
-                message: 'No products out of stock found'
-            });
-        }
+        const products = await Product.find({ stock: 0 })
+            .skip(Number(desde) || 0)
+            .limit(Number(limite) || 10);
 
         res.status(200).json({
             success: true,
             products
         });
     } catch (error) {
+        console.error('Error fetching out-of-stock products:', error);
         res.status(500).json({
             success: false,
-            message: 'Error retrieving out-of-stock products',
+            message: 'Error getting out-of-stock products',
             error: error.message
         });
-    }
+    } 
 };
 
 export const getTopSellingProducts = async (req, res) => {  //arreglar
+    const { limite = 10, desde = 0 } = req.query;
+
     try {
-        const products = await Product.find().sort({ sold: -1 }).limit(10);
+        const products = await Product.find()
+            .sort({ sold: -1 }) // Ordena por el valor de "sold" de mayor a menor
+            .skip(Number(desde))
+            .limit(Number(limite));
+
         res.status(200).json({
             success: true,
             products
@@ -153,7 +156,7 @@ export const getTopSellingProducts = async (req, res) => {  //arreglar
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: 'Error retrieving top-selling products',
+            message: 'Error getting top sold products',
             error
         });
     }

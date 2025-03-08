@@ -1,15 +1,50 @@
-import mongoose from 'mongoose';
+import {Schema, model } from 'mongoose';
 
-const billSchema = mongoose.Schema({
+const billSchema = Schema({
     user: {
-
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     },
-    product: {
-
+    products: [
+        {
+            product: {
+                type: Schema.Types.ObjectId,
+                ref: 'Product',
+                required: true
+            },
+            quantity: {
+                type: Number,
+                required: true,
+                min: 1
+            },
+            price: {
+                type: Number,
+                required: true
+            }
+        }
+    ],
+    totalAmount: {
+        type: Number,
+        required: true
     },
-    iva: {
-
+    paymentMethod: {
+        type: String,
+        enum: ['cash', 'credit_card', 'paypal', 'bank_transfer'],
+        required: true
     },
-})
+    status: {
+        type: String,
+        enum: ['pending', 'paid', 'cancelled'],
+        default: 'pending'
+    },
+    date: {
+        type: Date,
+        default: Date.now
+    }
+}, {
+    timestamps: true,
+    versionKey: false
+});
 
 export default model('Bill', billSchema);

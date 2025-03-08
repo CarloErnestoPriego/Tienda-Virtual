@@ -4,12 +4,17 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
+
 import { dbConnection } from './mongo.js';
 import { postRoles } from '../src/roles/role.controller.js';
+
 import authRoutes from '../src/auths/auth.routes.js';
 import authProducts from '../src/products/products.routes.js';
 import authCategory from '../src/categories/categories.routes.js';
 import authCart from '../src/Shopping/shopping.routes.js';
+import authBuyingProcess from '../src/buyingProcess/buyingProcess.routes.js';
+import authBill from '../src/bills/bill.routes.js';
+
 
 const middlewares = (app)=>{
     app.use(express.urlencoded({extended:false}));
@@ -24,6 +29,8 @@ const routes = (app) =>{
     app.use('/virtualStore/v1/product', authProducts);
     app.use('/virtualStore/v1/category', authCategory);
     app.use('/virtualStore/v1/cart', authCart);
+    app.use('/virtualStore/v1/buy', authBuyingProcess);
+    app.use('/virtualStore/v1/bill', authBill);
 }
 
 const conectarDB = async()=>{

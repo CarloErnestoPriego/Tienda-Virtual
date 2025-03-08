@@ -1,83 +1,31 @@
-import Bill from "./bill.model";
+import Bill from "./bill.model.js";
 
-export const getBill = async (req, res) =>{
-
-    const {limite = 10, desde = 0} = req.query;
-
-    const query = {status: true};
+export const searchBill = async (req, res) => {
+    const { id } = req.params;
 
     try {
-        
-        const bill = await Bill.find(query)
-        .skip(Number(desde))
-        .limit(Number(limite));
+        const bills = await Bill.find({ user: id });
 
-        const total = await Bill.countDocuments(query);
-
-        res.status(200).json({
-            success: true,
-            total,
-        })
-
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: 'Error getting bill',
-            error
-        })
-    }
-}
-
-export const searchBill = async (req, res) =>{
-
-    const {id}= req.params;
-
-    try {
-        
-        const bill = await Bill.findById(id);
-
-        if(!bill){
+        if (bills.length === 0) {
             return res.status(404).json({
                 success: false,
-                message: 'Bill not found'
-            })
+                message: 'No bills found for this user'
+            });
         }
 
         res.status(200).json({
-            succes: true,
-            bill
-        })
-
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: 'Error getting bill',
-            error
-        })
-    }
-}
-
-
-export const deleteBill = async (req,res ) =>{
-
-    const {id}= req.params;
-    try {
-        
-        await bill.findByIdAndUpdate(id,{status: false});
-
-        res.status(200).json({
             success: true,
-            message: 'bill successfully removed'
-        })
+            bills 
+        });
 
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: 'error deleting bill',
+            message: 'Error getting bills',
             error
-        })
+        });
     }
-}
+};
 
 export const updateBill = async (req, res) => {
     

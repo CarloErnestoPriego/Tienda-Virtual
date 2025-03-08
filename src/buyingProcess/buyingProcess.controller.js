@@ -1,63 +1,66 @@
-import Product from "../models/Product.js";
-import Bill from "../models/Bill.js";
-import User from "../models/User.js";
+import ShoppingCart from '../Shopping/shopping.model.js';
+import Product from '../products/products.model.js';
+import Bill from '../bills/bill.model.js';
 
-const processPurchase = async (req, res) => {
+export const buyingProcess = async (req, res) => {
     try {
-        const { userId, products } = req.body;
-        
-        // Verificar si el usuario existe
-        const user = await User.findById(userId);
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
+        const { userId, paymentMethod } = req.body;
+
+        if (!userId || !paymentMethod) {
+            return res.status(400).json({ message: "El id del usuario y el metodo de pago son necesarios" });
         }
 
-        let total = 0;
-        let productDetails = [];
-        
-        for (let item of products) {
-            const product = await Product.findById(item.productId);
-            if (!product) {
-                return res.status(404).json({ message: `Product with ID ${item.productId} not found` });
-            }
-            
-            if (product.stock < item.quantity) {
-                return res.status(400).json({ message: `Not enough stock for product ${product.name}` });
-            }
-            
-            // Calcular subtotal y actualizar stock
-            const subtotal = product.price * item.quantity;
-            total += subtotal;
-            product.stock -= item.quantity;
-            await product.save();
+        const cart = await ShoppingCart.findOne({ user: userId }).populate('products.product');
 
-            productDetails.push({
-                name: product.name,
+        if (!cart || cart.products.length === 0) {
+            return res.status(400).json({ message: "El carro esta vacio" });
+        }
+
+        let totalAmount = 0;
+        const billProducts = [];
+
+        for (let item of cart.products) {
+            const product = item.product;
+
+            if (product.stock < item.quantity) {
+                return res.status(400).json({ 
+                    message: `Insufficient stock for product: ${product.name}` 
+                });
+            }
+
+            totalAmount += product.price * item.quantity;
+
+            billProducts.push({
+                product: product._id,
                 quantity: item.quantity,
-                price: product.price,
-                subtotal
+                price: product.price
             });
         }
 
-        const iva = total * 0.12; // IVA del 12%
-        const finalTotal = total + iva;
-        
-        // Crear factura
-        const newBill = new Bill({
-            user: userId,
-            products: productDetails,
-            iva,
-            total: finalTotal,
-        });
-        await newBill.save();
+        for (let item of cart.products) {
+            await Product.findByIdAndUpdate(item.product._id, {
+                $inc: { stock: -item.quantity }
+            });
+        }
 
-        res.status(201).json({
-            message: "Purchase completed successfully",
-            bill: newBill
+        const bill = new Bill({
+            user: userId,
+            products: billProducts,
+            totalAmount,
+            paymentMethod,
+            status: 'paid'
         });
+
+        await bill.save();
+
+        await ShoppingCart.findOneAndUpdate({ user: userId }, { products: [] });
+
+        res.status(200).json({ 
+            message: "Compra realizada con exito", 
+            bill 
+        });
+
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
-
-export default processPurchase;

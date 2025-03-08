@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { check } from "express-validator";
 import { getUsers, getUserById, updateUser, deleteUser } from "./user.controller.js";
+
 import { existeUsuarioById } from "../helpers/db-validator.js";
 import { validarCampos } from "../middlewares/validar-campos.js";
 import { uploadProfilePicture } from "../middlewares/multer-upload.js";
@@ -10,7 +11,8 @@ const router = Router();
 router.get("/", getUsers);
 
 router.get(
-    "/findUser/:id", 
+    "/findUser/:id",
+
     [
         check("id", "No es un id valido").isMongoId(),
         check('id').custom(existeUsuarioById),
